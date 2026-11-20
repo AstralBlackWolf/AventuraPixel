@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "aventura-pixel-v18";
+const CACHE_NAME = "aventura-pixel-v19";
 const APP_FILES = [
     "./",
     "./index.html",
@@ -50,13 +50,7 @@ self.addEventListener("fetch", (event) => {
     event.respondWith((async () => {
         const cache = await caches.open(CACHE_NAME);
         const cached = await cache.match(request);
-
-        if (cached) {
-            event.waitUntil(fetch(request).then(async (response) => {
-                if (response.ok) await cache.put(request, response.clone());
-            }).catch(() => {}));
-            return cached;
-        }
+        if (cached) return cached;
 
         try {
             const response = await fetch(request);
