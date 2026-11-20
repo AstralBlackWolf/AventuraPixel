@@ -1,14 +1,13 @@
 "use strict";
 
-const CACHE_NAME = "aventura-pixel-v21";
+const CACHE_NAME = "aventura-pixel-v22";
 const APP_FILES = [
     "./",
     "./index.html",
     "./style.css",
     "./game-core.js",
     "./game-audio.js",
-    "./game.js?v=14",
-    "./mobile-controls.js?v=2",
+    "./game.js?v=15",
     "./pwa.js",
     "./manifest.webmanifest",
     "./icon-192.png",
@@ -20,17 +19,14 @@ const APP_FILES = [
 self.addEventListener("install", (event) => {
     event.waitUntil((async () => {
         const cache = await caches.open(CACHE_NAME);
-        await Promise.all(APP_FILES.map(async (file) => {
-            try {
-                const request = new Request(file, { cache: "reload" });
-                const response = await fetch(request);
-                if (response.ok) await cache.put(request, response);
-            } catch (error) {
-                // Un archivo secundario sin conexión no debe bloquear la app.
-            }
-        }));
+        for (const file of APP_FILES) {
+            const request = new Request(file, { cache: "reload" });
+            const response = await fetch(request);
+            if (!response.ok) throw new Error(`No se pudo guardar el recurso ${file}`);
+            await cache.put(request, response);
+        }
+        await self.skipWaiting();
     })());
-    self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
