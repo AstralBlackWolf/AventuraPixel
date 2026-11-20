@@ -488,7 +488,8 @@ canvas:focus-visible {
     }
 
     .controles-tactiles button[data-tactil="izquierda"],
-    .controles-tactiles button[data-tactil="derecha"] {
+    .controles-tactiles button[data-tactil="derecha"],
+    .controles-tactiles button[data-tactil="abajo"] {
         flex: 0 0 clamp(34px, 5vw, 44px);
     }
 
