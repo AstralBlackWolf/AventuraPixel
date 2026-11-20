@@ -191,6 +191,9 @@
 
     aplicarPosiciones();
     ajustarResolucionMovil();
-    window.addEventListener("resize", ajustarResolucionMovil, { passive: true });
+    window.addEventListener("resize", () => {
+        ajustarResolucionMovil();
+        aplicarPosiciones();
+    }, { passive: true });
     esTactil.addEventListener?.("change", ajustarResolucionMovil);
 })();
