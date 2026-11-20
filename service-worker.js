@@ -1,13 +1,13 @@
 "use strict";
 
-const CACHE_NAME = "aventura-pixel-v13";
+const CACHE_NAME = "aventura-pixel-v14";
 const APP_FILES = [
     "./",
     "./index.html",
     "./style.css",
     "./game-core.js",
     "./game-audio.js",
-    "./game.js",
+    "./game.js?v=13",
     "./pwa.js",
     "./manifest.webmanifest",
     "./icon-192.png",
