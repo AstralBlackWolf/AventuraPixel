@@ -504,3 +504,9 @@ canvas:focus-visible {
     }
 }
 
+/* Los controles táctiles solo se muestran durante una partida. */
+body:not(.en-partida) .controles-tactiles,
+body:not(.en-partida) .controles-utilidad {
+    display: none;
+}
+
