@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "aventura-pixel-v8";
+const CACHE_NAME = "aventura-pixel-v9";
 const APP_FILES = [
     "./",
     "./index.html",
@@ -10,6 +10,9 @@ const APP_FILES = [
     "./game.js",
     "./pwa.js",
     "./manifest.webmanifest",
+    "./icon-192.png",
+    "./icon-512.png",
+    "./apple-touch-icon.png",
     "./icon.svg"
 ];
 
@@ -45,3 +48,4 @@ self.addEventListener("fetch", (event) => {
         }).catch(() => caches.match("./index.html"))
     );
 });
+
