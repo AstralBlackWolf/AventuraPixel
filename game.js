@@ -4534,6 +4534,16 @@
             const detalle = e.colorDetalle || "#ffd071";
             const caraX = mirada < 0 ? x + 4 : x + 19;
 
+            // Los sprites pequeños se perdían entre el follaje en pantallas
+            // móviles. Dibujarlos más grandes y con una sombra oscura conserva
+            // el hitbox original, pero mejora mucho su lectura en el escenario.
+            ctx.save();
+            ctx.globalAlpha = 1;
+            halo(x + e.ancho / 2, y + e.alto / 2, 23);
+            ctx.translate(x, y + e.alto);
+            ctx.scale(1.3, 1.3);
+            ctx.translate(-x, -(y + e.alto));
+
             if (e.nombreEspecie === "jaguar") {
                 // Felino compacto, cola larga y rosetas reconocibles.
                 rectangulo(x + 4, y + 12, 19, 11, cuerpo);
@@ -4777,6 +4787,8 @@
                 rectangulo(x + 23, y + 8, 2, 2, "#ffffff");
                 rectangulo(x + 24, y + 8, 1, 2, "#172238");
             }
+
+            ctx.restore();
 
             // Rasgos compactos para las especies añadidas al catálogo.
             switch (e.nombreEspecie) {
@@ -6705,3 +6717,4 @@
     fundidoDir = -1;
     requestAnimationFrame(bucle);
 })();
+
