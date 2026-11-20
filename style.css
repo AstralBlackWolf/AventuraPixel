@@ -544,3 +544,17 @@ body:not(.en-partida) .controles-utilidad {
     display: none;
 }
 
+
+.controles-pausa {
+    display: none; position: absolute; z-index: 4; left: 50%; top: 58%;
+    transform: translate(-50%, -50%); flex-wrap: wrap; justify-content: center;
+    gap: 8px; width: min(92%, 460px);
+}
+.controles-pausa button {
+    min-height: 42px; padding: 8px 13px; border: 1px solid #8ccbff;
+    border-radius: 8px; background: rgba(13, 34, 58, 0.94); color: #fff;
+    font: bold 12px "Courier New", monospace; touch-action: manipulation;
+}
+body.partida-pausada .controles-pausa { display: flex; }
+body:not(.en-partida) .controles-pausa,
+body:not(.partida-pausada) .controles-pausa { display: none; }
