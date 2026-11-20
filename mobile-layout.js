@@ -96,10 +96,9 @@
             posiciones = {};
             for (const control of controles) {
                 const caja = control.getBoundingClientRect();
-                posiciones[control.dataset.tactil] = limitarPosicion(control, {
-                    x: (caja.left - marco.left) / marco.width,
-                    y: (caja.top - marco.top) / marco.height
-                }.x, (caja.top - marco.top) / marco.height);
+                const x = (caja.left - marco.left) / Math.max(1, marco.width);
+                const y = (caja.top - marco.top) / Math.max(1, marco.height);
+                posiciones[control.dataset.tactil] = limitarPosicion(control, x, y);
             }
         }
 
