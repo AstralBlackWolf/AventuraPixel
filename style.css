@@ -660,3 +660,29 @@ body:not(.en-partida) .controles-tactiles { display: none; }
         pointer-events: none;
     }
 }
+
+@media (pointer: coarse) and (orientation: portrait) and (max-width: 760px) {
+    .controles-tactiles { gap: 4px; }
+    .controles-tactiles button {
+        min-height: 48px;
+        padding: 4px;
+        font-size: 9px;
+    }
+    .controles-tactiles button[data-tactil="izquierda"],
+    .controles-tactiles button[data-tactil="derecha"] {
+        flex: 0 1 48px;
+        min-width: 48px;
+    }
+    .controles-tactiles button[data-tactil="abajo"] {
+        flex: 0 1 66px;
+        min-width: 56px;
+        min-height: 48px;
+        font-size: 8px;
+    }
+    .controles-tactiles button[data-tactil="disparar"],
+    .controles-tactiles button[data-tactil="saltar"] {
+        flex: 0 1 70px;
+        min-width: 62px;
+        min-height: 48px;
+    }
+}
