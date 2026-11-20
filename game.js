@@ -1912,7 +1912,7 @@
         const alto = 36 + lineas.length * 18;
         const x = (ANCHO - ancho) / 2;
         const y = 122;
-        ctx.fillStyle = "rgba(7, 12, 27, 0.9)";
+        ctx.fillStyle = "rgba(7, 12, 27, 0.68)";
         ctx.fillRect(x, y, ancho, alto);
         ctx.strokeStyle = "#ffe16b";
         ctx.lineWidth = 2;
@@ -4736,6 +4736,46 @@
                 }
                 rectangulo(x + 10, y + 12, 2, 2, "#ffffff");
                 rectangulo(x + 19, y + 12, 2, 2, "#ffffff");
+            } else if (e.claseEspecie === "anfibio") {
+                rectangulo(x + 6, y + 13, 20, 12, cuerpo);
+                rectangulo(x + 7, y + 20, 5, 7, detalle);
+                rectangulo(x + 21, y + 20, 5, 7, detalle);
+                rectangulo(x + 7, y + 7, 7, 8, cuerpo);
+                rectangulo(x + 19, y + 7, 7, 8, cuerpo);
+                rectangulo(x + 9, y + 8, 3, 3, "#ffffff");
+                rectangulo(x + 21, y + 8, 3, 3, "#ffffff");
+                rectangulo(x + 10, y + 9, 1, 2, "#172238");
+                rectangulo(x + 22, y + 9, 1, 2, "#172238");
+                rectangulo(x + 13, y + 19, 7, 2, detalle);
+            } else if (e.claseEspecie === "molusco") {
+                halo(x + 15, y + 15, 18);
+                rectangulo(x + 7, y + 7, 17, 14, cuerpo);
+                rectangulo(x + 10, y + 4, 11, 7, detalle);
+                for (let tentaculo = 0; tentaculo < 5; tentaculo++) {
+                    rectangulo(x + 5 + tentaculo * 5, y + 19, 3, 8 + ((tentaculo + b) % 2) * 3, cuerpo);
+                }
+                rectangulo(x + 11, y + 12, 2, 2, "#ffffff");
+                rectangulo(x + 19, y + 12, 2, 2, "#ffffff");
+            } else if (e.claseEspecie === "crustáceo") {
+                rectangulo(x + 5, y + 13, 20, 12, cuerpo);
+                rectangulo(x + 1, y + 7, 8, 8, detalle);
+                rectangulo(x + 22, y + 7, 8, 8, detalle);
+                for (let pata = 0; pata < 4; pata++) {
+                    rectangulo(x + 5 + pata * 5, y + 22, 3, 7, detalle);
+                }
+                rectangulo(x + 9, y + 9, 5, 5, "#ffffff");
+                rectangulo(x + 19, y + 9, 5, 5, "#ffffff");
+                rectangulo(x + 10, y + 10, 2, 3, "#172238");
+                rectangulo(x + 20, y + 10, 2, 3, "#172238");
+            } else {
+                // Una silueta visible de respaldo para futuras clases de fauna.
+                halo(x + 15, y + 16, 18);
+                rectangulo(x + 5, y + 11, 21, 14, cuerpo);
+                rectangulo(x + 19, y + 5, 10, 10, cuerpo);
+                rectangulo(x + 7, y + 22, 5, 7, detalle);
+                rectangulo(x + 21, y + 22, 5, 7, detalle);
+                rectangulo(x + 23, y + 8, 2, 2, "#ffffff");
+                rectangulo(x + 24, y + 8, 1, 2, "#172238");
             }
 
             // Rasgos compactos para las especies añadidas al catálogo.
@@ -5148,13 +5188,14 @@
 
         ctx.globalAlpha = parpadeo;
         ctx.fillStyle = "rgba(7, 12, 27, 0.85)";
-        const cajaX = izquierda ? 12 : ANCHO - 142;
-        ctx.fillRect(cajaX, ALTO - 62, 130, 28);
+        const cajaX = ANCHO / 2 - 65;
+        const cajaY = 82;
+        ctx.fillRect(cajaX, cajaY, 130, 28);
 
         textoCentrado(
             izquierda ? `◄ LLAVE ${distancia}m` : `LLAVE ${distancia}m ►`,
             cajaX + 65,
-            ALTO - 43,
+            cajaY + 19,
             13,
             "#ffdd65"
         );
@@ -5164,10 +5205,11 @@
     function dibujarMensaje() {
         if (mensajeTiempo <= 0) return;
 
-        ctx.fillStyle = "rgba(7, 12, 27, 0.82)";
-        ctx.fillRect(ANCHO / 2 - 210, 115, 420, 48);
+        const y = ALTO - 108;
+        ctx.fillStyle = "rgba(7, 12, 27, 0.66)";
+        ctx.fillRect(ANCHO / 2 - 210, y, 420, 40);
 
-        textoCentrado(mensaje, ANCHO / 2, 146, 19, "#ffffff");
+        textoCentrado(mensaje, ANCHO / 2, y + 26, 16, "#ffffff");
     }
 
     function dibujarParticulas() {
@@ -5231,10 +5273,12 @@
         if (!enTutorial && tiempo > 60 && tiempo < 360 && AYUDAS[nivelActual]) {
             const consejos = consejosContextualesNivel();
             const consejo = consejos[Math.floor((tiempo - 60) / 60) % consejos.length];
-            ctx.globalAlpha = Math.max(0, Math.min(1, (360 - tiempo) / 40, (tiempo - 60) / 30));
-            ctx.fillStyle = "rgba(7, 12, 27, 0.75)";
-            ctx.fillRect(ANCHO / 2 - 330, 175, 660, 36);
-            textoCentrado(consejo, ANCHO / 2, 198, 12, "#bdefff");
+            const yConsejo = ALTO - 160;
+            const opacidadConsejo = Math.max(0, Math.min(1, (360 - tiempo) / 40, (tiempo - 60) / 30));
+            ctx.globalAlpha = opacidadConsejo;
+            ctx.fillStyle = "rgba(7, 12, 27, 0.72)";
+            ctx.fillRect(ANCHO / 2 - 330, yConsejo, 660, 36);
+            textoCentrado(consejo, ANCHO / 2, yConsejo + 23, 12, "#bdefff");
             ctx.globalAlpha = 1;
         }
 
