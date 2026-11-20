@@ -1,5 +1,5 @@
-Warning: truncated output (original token count: 81847)
-Total output lines: 6663
+Warning: truncated output (original token count: 81866)
+Total output lines: 6664
 
 (() => {
     "use strict";
@@ -201,7 +201,169 @@ Total output lines: 6663
         9: ["ave", "rana", "luciernaga"], 10: ["pez", "medusa", "luciernaga"]
     };
     const CAPITULOS_HISTORIA = [
-        { titulo: "EL PULSO DE LA SELVA", inicio: "Una señal verde parpadea entre l…72847 tokens truncated…ecla) {
+        { titulo: "EL PULSO DE LA SELVA", inicio: "Una señal verde parpadea entre las copas. La Red Viva perdió su primer enlace y el sendero está cubierto por lianas y plantas inquietas. Sigue las huellas del jaguar: pueden conducirte hasta el nodo que necesita ayuda.", final: "El dosel vuelve a iluminarse y las semillas ya pueden cruzar el corredor restaurado. El jaguar regresa a su territorio; una bandada lleva la señal hacia las montañas frías.", texto: "El primer nodo de la Red Viva late bajo el dosel. El jaguar y el tapir te enseñan que cada especie cumple una función: cuando el bosque pierde sus corredores, las semillas dejan de viajar y el equilibrio se rompe. Recupera el paso entre los árboles y lleva una semilla al siguiente hábitat.", mapa: ["🌿", "🐆", "🌱", "🦜", "💧"] },
+        { titulo: "EL SILENCIO DE LA TAIGA", inicio: "La señal que llega de la selva se debilita bajo una capa de hielo. Las rutas del zorro ártico han quedado aisladas y el suelo resbala a cada paso. Encuentra el paso entre los glaciares antes de que el enlace se apague.", final: "El camino entre la nieve vuelve a abrirse y las especies recuperan su ruta estacional. Desde una cresta, un búho divisa el siguiente destino: las llanuras cálidas de la sabana.", texto: "El frío cambia, el hielo retrocede y las rutas del zorro ártico se interrumpen. La Red Viva conserva la memoria de las estaciones: proteger la tundra también significa cuidar el clima que conecta todos los mundos.", mapa: ["❄️", "🐾", "🏔️", "🦉", "🌨️"] },
+        { titulo: "LA SABANA COMPARTIDA", inicio: "El calor ha secado los abrevaderos de la sabana. Sin agua, las manadas cambian su ruta y los carroñeros pierden alimento. Busca la fuente escondida entre la hierba alta y escucha a los animales que comparten el territorio.", final: "La fuente vuelve a fluir y los animales se acercan sin disputarse el último charco. El agua sigue su curso hacia las dunas: allí te espera una nueva prueba de cuidado.", texto: "La hierba alta es refugio, alimento y camino. Al restaurar sus fuentes de agua, descubres que depredadores y carroñeros sostienen juntos la sabana. Ninguna especie prospera aislada.", mapa: ["🌾", "🦁", "🌳", "🦒", "💧"] },
+        { titulo: "AGUA PARA EL DESIERTO", inicio: "Una corriente subterránea apenas alcanza el oasis. Las huellas del fennec rodean una zona donde la arena cubrió el antiguo manantial. Cruza las dunas y descubre cómo proteger cada gota.", final: "El oasis queda protegido y vuelve a alimentar a las especies del desierto. Una lluvia lejana viaja hacia los humedales, donde el agua deberá encontrar un nuevo cauce.", texto: "Bajo la arena hay vida que sabe esperar. El fennec, los reptiles y los cactus dependen de cada gota. La semilla del desierto no crea agua: ayuda a proteger los oasis y a usar este recurso con cuidado.", mapa: ["🏜️", "🦊", "🌵", "🪲", "💧"] },
+        { titulo: "EL HUMEDAL RESPIRA", inicio: "El agua del oasis llegó turbia y los canales del humedal están atascados. Ranas y aves buscan un paso seguro entre los juncos. Sigue la corriente y localiza el punto donde el agua dejó de circular.", final: "Los canales vuelven a conectarse y el humedal puede filtrar el agua que baja hacia el río. Una nutria aparece en la orilla y se lanza corriente abajo.", texto: "El humedal filtra el agua y amortigua las inundaciones. Capibaras, anfibios y aves encuentran aquí alimento y refugio. Al despejar los canales, la corriente vuelve a conectar la tierra con el río.", mapa: ["🌿", "🐸", "🪷", "🦫", "〰️"] },
+        { titulo: "EL RÍO NOS CONECTA", inicio: "La nutria te guía por un río que perdió su brillo. Piedras sueltas y rápidos esconden el origen del problema. Sigue el curso del agua desde sus orillas hasta el punto donde nace la señal.", final: "El agua recupera su curso y lleva vida hacia la costa. El martín pescador encuentra alimento de nuevo; su vuelo marca el rumbo de la siguiente etapa.", texto: "Una corriente limpia lleva nutrientes desde las montañas hasta el mar. La nutria y el martín pescador son parte de una red sensible a la contaminación. Sigue el curso del agua y encuentra dónde vuelve a nacer la vida.", mapa: ["⛰️", "🐟", "〰️", "🦦", "🌊"] },
+        { titulo: "CUIDAR LA COSTA", inicio: "El río desemboca entre rocas cubiertas de residuos. La marea empuja los desechos hacia las pozas donde se refugian cangrejos y aves. Explora la costa y despeja el paso antes de que suba la marea.", final: "La costa queda limpia y sus pozas vuelven a servir de refugio. Las corrientes llevan la señal mar adentro, hasta un arrecife que necesita protección.", texto: "La costa rocosa protege el encuentro entre tierra y océano. Pozas, aves y mamíferos marinos dependen de playas sin residuos. La marea te muestra que nuestras acciones viajan mucho más lejos de lo que vemos.", mapa: ["🪨", "🦀", "🪸", "🦭", "🌊"] },
+        { titulo: "EL ARRECIFE DE COLORES", inicio: "El arrecife perdió sus colores y sus habitantes buscan refugio. Una corriente cálida atraviesa los corales y altera el equilibrio del agua. Encuentra el nodo marino y aprende qué necesita para recuperarse.", final: "Los corales vuelven a ofrecer refugio y los peces regresan en pequeños grupos. El arrecife envía su pulso hacia las raíces del manglar, que protegen la costa desde tierra.", texto: "El coral es un animal que construye hogar para miles de especies. El agua cálida y la contaminación lo ponen en riesgo. Al restaurar este nodo, la vida del arrecife puede volver a refugiarse y alimentarse.", mapa: ["🐠", "🪸", "🐢", "🪼", "🌊"] },
+        { titulo: "RAÍCES QUE PROTEGEN", inicio: "La señal del arrecife llega a un manglar golpeado por las olas. Sus raíces retienen residuos y los canales están bloqueados. Busca entre las raíces el camino que protege a las crías y a las comunidades costeras.", final: "Las raíces vuelven a sostener la orilla y los canales se abren para las crías. El a…69866 tokens truncated…;
+        } else if (indice === 3) {
+            if (panelConfiguracion) {
+                panelConfiguracion.open = false;
+                panelConfiguracion.hidden = true;
+            }
+            estado = "logros";
+            if (canvas && typeof canvas.focus === "function") canvas.focus();
+        } else if (indice === 4) {
+            if (panelConfiguracion) {
+                panelConfiguracion.open = false;
+                panelConfiguracion.hidden = true;
+            }
+            filaPersonaje = 0;
+            estado = "personaje";
+            if (canvas && typeof canvas.focus === "function") canvas.focus();
+        } else if (indice === 5) {
+            if (panelConfiguracion) {
+                panelConfiguracion.open = false;
+                panelConfiguracion.hidden = true;
+            }
+            iniciarTutorial();
+            if (canvas && typeof canvas.focus === "function") canvas.focus();
+        } else if (indice === 6) {
+            if (panelConfiguracion) { panelConfiguracion.open = false; panelConfiguracion.hidden = true; }
+            ecosistemaAlbum = Math.min(9, Math.floor((nivelActual - 1) / 5));
+            vistaBitacora = "album";
+            paginaAlbum = 0;
+            estado = "bitacora";
+            if (canvas && typeof canvas.focus === "function") canvas.focus();
+        }
+    }
+
+    function volverAlMenuPrincipal() {
+        if (enTutorial) restaurarTrasTutorial();
+        estado = "inicio";
+        pausado = false;
+        confirmarReinicio = false;
+        ventanaLogro = null;
+        for (const tecla in teclas) teclas[tecla] = false;
+        if (panelConfiguracion) {
+            panelConfiguracion.open = false;
+            panelConfiguracion.hidden = true;
+        }
+    }
+
+    function etiquetaTecla(tecla) {
+        const etiquetas = {
+            " ": "espacio",
+            arrowleft: "←",
+            arrowright: "→",
+            arrowup: "↑",
+            arrowdown: "↓",
+            escape: "Esc"
+        };
+        return etiquetas[tecla] || tecla.toUpperCase();
+    }
+
+    function actualizarAjustesUI() {
+        if (botonSonido) {
+            const apagado = silencio || volumenSonido <= 0;
+            botonSonido.textContent = apagado ? "Sonido: apagado" : "Sonido: activado";
+            botonSonido.setAttribute("aria-pressed", String(apagado));
+        }
+        if (controlVolumen) controlVolumen.value = String(opciones.volumen);
+        if (selectorDificultad) selectorDificultad.value = opciones.dificultad;
+        if (controlVelocidad) controlVelocidad.value = String(opciones.velocidad);
+        if (salidaVelocidad) salidaVelocidad.value = `${opciones.velocidad}%`;
+        if (controlReducirMovimiento) controlReducirMovimiento.checked = opciones.reducirMovimiento;
+        if (controlAltoContraste) controlAltoContraste.checked = opciones.altoContraste;
+
+        document.body.classList.toggle("alto-contraste", opciones.altoContraste);
+
+        for (const boton of document.querySelectorAll("[data-reasignar]")) {
+            const accion = boton.dataset.reasignar;
+            const nombre = boton.dataset.nombre || boton.textContent.split(":")[0];
+            boton.dataset.nombre = nombre;
+            boton.textContent = `${nombre}: ${accionPendiente === accion ? "pulsa una tecla…" : etiquetaTecla(opciones.bindings[accion])}`;
+            boton.setAttribute("aria-pressed", String(accionPendiente === accion));
+        }
+    }
+
+    function guardarCambiosOpciones() {
+        opciones = CORE.normalizeSettings(opciones, preferenciasSistemaReduceMovimiento);
+        silencio = opciones.silencio;
+        volumenSonido = opciones.volumen / 100;
+        guardarOpciones();
+        actualizarAjustesUI();
+        sincronizarMusica();
+    }
+
+    if (botonBorrarProgreso) {
+        botonBorrarProgreso.addEventListener("click", () => {
+            if (window.confirm("¿Borrar niveles, estrellas, puntuación y logros de las tres dificultades? Esta acción no se puede deshacer.")) {
+                restablecerProgreso();
+            }
+        });
+    }
+
+    if (botonSonido) {
+        botonSonido.addEventListener("click", () => {
+            opciones.silencio = !opciones.silencio;
+            guardarCambiosOpciones();
+        });
+    }
+
+    if (controlVolumen) {
+        controlVolumen.addEventListener("input", () => {
+            opciones.volumen = Number(controlVolumen.value);
+            guardarCambiosOpciones();
+        });
+    }
+
+    if (selectorDificultad) {
+        selectorDificultad.addEventListener("change", () => {
+            cambiarDificultad(selectorDificultad.value);
+        });
+    }
+
+    if (controlVelocidad) {
+        controlVelocidad.addEventListener("input", () => {
+            opciones.velocidad = Number(controlVelocidad.value);
+            guardarCambiosOpciones();
+        });
+    }
+
+    if (controlReducirMovimiento) {
+        controlReducirMovimiento.addEventListener("change", () => {
+            opciones.reducirMovimiento = controlReducirMovimiento.checked;
+            guardarCambiosOpciones();
+        });
+    }
+
+    if (controlAltoContraste) {
+        controlAltoContraste.addEventListener("change", () => {
+            opciones.altoContraste = controlAltoContraste.checked;
+            guardarCambiosOpciones();
+        });
+    }
+
+    for (const boton of document.querySelectorAll("[data-reasignar]")) {
+        boton.addEventListener("click", () => {
+            accionPendiente = boton.dataset.reasignar;
+            if (estadoAjustes) estadoAjustes.textContent = `Pulsa la tecla nueva para ${accionPendiente}.`;
+            actualizarAjustesUI();
+        });
+    }
+
+    actualizarAjustesUI();
+
+    window.addEventListener("keydown", (e) => {
+        const tecla = e.key.toLowerCase();
+        if (accionPendiente) {
+            const nuevaTecla = CORE.normalizeKey(tecla);
+            if (nuevaTecla) {
                 e.preventDefault();
                 opciones = CORE.assignBinding(opciones, accionPendiente, nuevaTecla);
                 accionPendiente = null;
