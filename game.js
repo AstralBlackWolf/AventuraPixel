@@ -6532,6 +6532,7 @@
         const accion = boton.dataset.tactil;
         const soltar = () => {
             if (accion === "izquierda" || accion === "derecha") teclas[accion] = false;
+            if (accion === "abajo") teclas.arrowdown = false;
             if (accion === "saltar") {
                 teclas.saltar = false;
                 if (estado === "jugando" && !pausado && jugador.vy < -4) jugador.vy *= 0.5;
@@ -6544,6 +6545,7 @@
             boton.setPointerCapture?.(evento.pointerId);
             boton.classList.add("presionado");
             if (accion === "izquierda" || accion === "derecha") teclas[accion] = true;
+            else if (accion === "abajo") teclas.arrowdown = true;
             else if (accion === "saltar") {
                 teclas.saltar = true;
                 saltar();
