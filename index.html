@@ -16,6 +16,7 @@
     <script src="game-core.js" defer></script>
     <script src="game-audio.js" defer></script>
     <script src="game.js?v=17" defer></script>
+    <script src="mobile-layout.js?v=1" defer></script>
     <script src="pwa.js" defer></script>
 </head>
 
@@ -50,11 +51,17 @@
                 </nav>
                 <nav class="controles-utilidad" aria-label="Controles secundarios">
                     <button type="button" data-tactil="pausa" aria-label="Pausar o continuar">PAUSA</button>
+                    <button type="button" data-tactil="ajustar" aria-label="Personalizar ubicación de controles">MOVER</button>
                 </nav>
                 <nav class="controles-pausa" aria-label="Opciones de partida pausada">
                     <button type="button" data-pausa="continuar">CONTINUAR</button>
                     <button type="button" data-pausa="mapa">MAPA</button>
                     <button type="button" data-pausa="reiniciar">REINICIAR</button>
+                </nav>
+                <nav class="controles-ajuste" aria-label="Personalización de controles">
+                    <p>Arrastra los botones a tu gusto</p>
+                    <button type="button" data-layout="guardar">LISTO</button>
+                    <button type="button" data-layout="restablecer">RESTABLECER</button>
                 </nav>
             </div>
 
