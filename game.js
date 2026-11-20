@@ -1473,9 +1473,9 @@
 
             obstaculosSuelo.push({
                 x: px + distanciaBarrera,
-                y: SUELO - altoBarrera,
-                ancho: anchoBarrera,
-                alto: altoBarrera,
+                y: SUELO - altoBarrera * 0.88,
+                ancho: anchoBarrera * 0.88,
+                alto: altoBarrera * 0.88,
                 ...fichaObstaculo,
                 impulso: true
             });
@@ -1829,7 +1829,7 @@
 
         // Peligros.
         obstaculosSuelo.push({ x: 3250, y: SUELO - 20, ancho: 40, alto: 20, ...(OBSTACULOS_SUELO[1] || {}) });
-        obstaculosSuelo.push({ x: 5132, y: SUELO - 240, ancho: 44, alto: 240, ...(OBSTACULOS_SUELO[1] || {}), impulso: true });
+        obstaculosSuelo.push({ x: 5132, y: SUELO - 210, ancho: 39, alto: 210, ...(OBSTACULOS_SUELO[1] || {}), impulso: true });
         plantas.push({ x: 3483, ancho: 34, ...PELIGROS_BIOLOGICOS[1], fase: 0, altura: 0, vida: 3, golpe: 0, vivo: true });
         canones.push({ x: 4130, y: SUELO - 38, ancho: 32, alto: 38, espera: 150 });
 
@@ -1907,26 +1907,26 @@
         ctx.save();
         ctx.font = "13px monospace";
         ctx.textAlign = "left";
-        const lineas = ajustarTextoTutorial(cartel.texto(), 580);
-        const ancho = 620;
-        const alto = 36 + lineas.length * 18;
+        const lineas = ajustarTextoTutorial(cartel.texto(), 500);
+        const ancho = 540;
+        const alto = 32 + lineas.length * 15;
         const x = (ANCHO - ancho) / 2;
-        const y = 122;
-        ctx.fillStyle = "rgba(7, 12, 27, 0.68)";
+        const y = 82;
+        ctx.fillStyle = "rgba(7, 12, 27, 0.4)";
         ctx.fillRect(x, y, ancho, alto);
-        ctx.strokeStyle = "#ffe16b";
-        ctx.lineWidth = 2;
+        ctx.strokeStyle = "rgba(255, 225, 107, 0.45)";
+        ctx.lineWidth = 1;
         ctx.strokeRect(x, y, ancho, alto);
-        ctx.font = "bold 14px monospace";
-        ctx.fillStyle = "#ffe16b";
+        ctx.font = "bold 12px monospace";
+        ctx.fillStyle = "#f5df9b";
         ctx.fillText(cartel.titulo, x + 16, y + 22);
         ctx.textAlign = "right";
         ctx.fillStyle = "#9fb3c9";
         ctx.fillText(`${tutorialCarteles.indexOf(cartel) + 1}/${tutorialCarteles.length}`, x + ancho - 16, y + 22);
         ctx.textAlign = "left";
-        ctx.font = "13px monospace";
-        ctx.fillStyle = "#e8f4ff";
-        lineas.forEach((linea, i) => ctx.fillText(linea, x + 16, y + 44 + i * 18));
+        ctx.font = "11px monospace";
+        ctx.fillStyle = "#d8e2ec";
+        lineas.forEach((linea, i) => ctx.fillText(linea, x + 16, y + 40 + i * 15));
         ctx.restore();
     }
 
@@ -5107,24 +5107,24 @@
     // -----------------------------------------------------
 
     function dibujarHUD() {
-        rectangulo(12, 12, 374, 98, "rgba(7, 12, 27, 0.86)");
+        rectangulo(12, 12, 286, 64, "rgba(7, 12, 27, 0.58)");
 
-        ctx.font = "bold 15px monospace";
+        ctx.font = "bold 13px monospace";
         ctx.fillStyle = "#eaf4ff";
-        ctx.fillText(enTutorial ? "TUTORIAL" : `NIVEL: ${nivelActual}/${TOTAL_NIVELES}`, 24, 34);
-        ctx.fillText(`PUNTOS: ${puntosMostrados}`, 24, 56);
+        ctx.fillText(enTutorial ? "TUTORIAL" : `NIVEL ${nivelActual}/${TOTAL_NIVELES}`, 20, 30);
+        ctx.fillText(`PTS ${puntosMostrados}`, 20, 50);
 
         ctx.fillStyle = "#ffd34f";
-        ctx.fillText(`MONEDAS: ${jugador.monedas}/${monedas.length}`, 190, 34);
+        ctx.fillText(`MONEDAS ${jugador.monedas}/${monedas.length}`, 120, 30);
 
         ctx.fillStyle = "#54edff";
-        ctx.fillText(`DIAMANTES: ${jugador.diamantes}/3`, 190, 56);
+        ctx.fillText(`DIAMANTES ${jugador.diamantes}/3`, 120, 50);
 
         ctx.fillStyle = jugador.tieneLlave ? "#6bffab" : "#ffdc73";
         ctx.fillText(
             jugador.tieneLlave ? "LLAVE: SÍ" : "LLAVE: NO",
-            24,
-            78
+            20,
+            68
         );
 
         ctx.font = "bold 12px monospace";
@@ -5140,7 +5140,7 @@
                 ? `OBJ: CALMA AL GUARDIÁN (${Math.max(0, jefe.vida)}/${jefe.vidaMaxima})`
                 : `OBJ: REÚNE DIAMANTES PARA EL ANTÍDOTO (${jugador.diamantes}/3)`;
         }
-        ctx.fillText(objetivo, 24, 101);
+        ctx.fillText(objetivo, 20, 90);
 
         // Vidas (el último corazón late cuando queda una sola vida).
         for (let i = 0; i < vidasPorNivel(); i++) {
@@ -5221,12 +5221,12 @@
         if (mensajeTiempo <= 0) return;
 
         const dispositivoTactil = window.matchMedia("(pointer: coarse)").matches;
-        const ancho = dispositivoTactil ? 360 : 420;
-        const alto = dispositivoTactil ? 34 : 40;
-        const y = dispositivoTactil ? 118 : ALTO - 108;
-        const tamano = dispositivoTactil ? 14 : 16;
+        const ancho = dispositivoTactil ? 300 : 340;
+        const alto = 28;
+        const y = dispositivoTactil ? 88 : ALTO - 66;
+        const tamano = dispositivoTactil ? 11 : 12;
         ctx.save();
-        ctx.fillStyle = dispositivoTactil ? "rgba(7, 12, 27, 0.82)" : "rgba(7, 12, 27, 0.66)";
+        ctx.fillStyle = dispositivoTactil ? "rgba(7, 12, 27, 0.48)" : "rgba(7, 12, 27, 0.42)";
         ctx.fillRect(ANCHO / 2 - ancho / 2, y, ancho, alto);
 
         ctx.font = `bold ${tamano}px monospace`;
@@ -5311,7 +5311,7 @@
             ctx.fillRect(0, 0, ANCHO, ALTO);
             textoCentrado("PAUSA", ANCHO / 2, ALTO / 2 - 48, 40, "#ffe16b");
             textoCentrado(
-                "P: continuar   |   M: mapa   |   R: reiniciar   |   Q: menú",
+                "Elige una opción para continuar, abrir el mapa o reiniciar",
                 ANCHO / 2,
                 ALTO / 2 - 12,
                 12,
@@ -5989,6 +5989,7 @@
 
     function dibujar() {
         document.body.classList.toggle("en-partida", estado === "jugando");
+        document.body.classList.toggle("partida-pausada", estado === "jugando" && pausado);
         if (estado === "inicio") {
             dibujarMapa();
             ctx.fillStyle = "rgba(5, 8, 20, 0.82)";
@@ -6714,6 +6715,15 @@
         e.preventDefault();
         logrosScroll = limitar(logrosScroll + (e.deltaY > 0 ? 2 : -2), 0, obtenerTodosLosLogros().length - 6);
     }, { passive: false });
+
+    for (const boton of document.querySelectorAll("[data-pausa]")) {
+        boton.addEventListener("click", () => {
+            if (estado !== "jugando" || !pausado) return;
+            if (boton.dataset.pausa === "continuar") pausado = false;
+            else if (boton.dataset.pausa === "mapa") { pausado = false; irAMapa(); }
+            else if (boton.dataset.pausa === "reiniciar") { pausado = false; irANivel(nivelActual); }
+        });
+    }
 
     // Recuperar progreso y abrir el mapa en el último nivel desbloqueado.
     cargarProgresoGuardado();
