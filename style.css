@@ -486,7 +486,7 @@ canvas:focus-visible {
     }
 
     .controles-utilidad {
-        inset: max(6px, env(safe-area-inset-top)) max(6px, env(safe-area-inset-right)) auto auto;
+        inset: max(84px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) auto auto;
         gap: 7px;
     }
 
