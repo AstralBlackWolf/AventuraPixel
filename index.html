@@ -41,6 +41,20 @@
                 >
                     Tu navegador no admite Canvas. Actualiza el navegador para jugar a Aventura Pixel.
                 </canvas>
+                <section class="hud-movil" aria-label="Estado de la partida">
+                    <span data-hud="nivel"></span>
+                    <span data-hud="puntos"></span>
+                    <span data-hud="monedas"></span>
+                    <span data-hud="diamantes"></span>
+                    <span data-hud="llave"></span>
+                    <span data-hud="vidas"></span>
+                </section>
+                <section class="tutorial-movil" aria-label="Consejo del tutorial" aria-hidden="true">
+                    <strong data-tutorial="titulo"></strong>
+                    <span data-tutorial="progreso"></span>
+                    <p data-tutorial="texto"></p>
+                </section>
+                <p class="mensaje-movil" role="status" hidden></p>
                 <p class="aviso-rotacion" role="status">Gira el teléfono para ver mejor la partida</p>
                 <nav class="controles-tactiles" aria-label="Controles táctiles del juego">
                     <button type="button" data-tactil="izquierda" aria-label="Mover a la izquierda">◀</button>
