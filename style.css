@@ -224,17 +224,55 @@ canvas {
     padding: 8px 12px;
     border: 1px solid #9bdfff;
     border-radius: 12px;
-    background: rgba(10, 24, 42, 0.76);
+    background: rgba(10, 24, 42, 0.3);
     color: #fff;
     font: bold 12px "Courier New", monospace;
     touch-action: none;
     pointer-events: auto;
-    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.18);
+    opacity: 0.58;
+}
+
+.controles-tactiles button:active,
+.controles-utilidad button:active {
+    opacity: 0.95;
+    background: rgba(42, 112, 160, 0.78);
+}
+
+.controles-utilidad {
+    display: none;
+    position: absolute;
+    inset: 8px 8px auto auto;
+    z-index: 2;
+    flex-direction: column;
+    gap: 9px;
+    pointer-events: none;
+}
+
+.controles-utilidad button {
+    min-width: 42px;
+    min-height: 34px;
+    padding: 4px 7px;
+    border: 1px solid rgba(155, 223, 255, 0.58);
+    border-radius: 8px;
+    background: rgba(10, 24, 42, 0.24);
+    color: rgba(255, 255, 255, 0.8);
+    font: bold 9px "Courier New", monospace;
+    opacity: 0.48;
+    touch-action: none;
+    pointer-events: auto;
 }
 
 .controles-tactiles button.presionado {
     transform: translateY(2px);
     background: rgba(42, 112, 160, 0.95);
+    opacity: 1;
+}
+
+.controles-utilidad button.presionado {
+    transform: translateY(1px);
+    background: rgba(42, 112, 160, 0.88);
+    opacity: 0.95;
 }
 
 .separador-tactil {
@@ -350,6 +388,17 @@ canvas:focus-visible {
     .controles-tactiles {
         display: flex;
     }
+
+    .controles-utilidad {
+        display: flex;
+    }
+
+    .controles-tactiles button {
+        min-width: 42px;
+        min-height: 40px;
+        padding: 5px 8px;
+        font-size: 10px;
+    }
 }
 
 @media (max-width: 760px) {
@@ -376,10 +425,10 @@ canvas:focus-visible {
     }
 
     .controles-tactiles button {
-        min-width: clamp(42px, 12vw, 58px);
-        min-height: clamp(44px, 12vw, 58px);
-        padding: 6px clamp(5px, 1.5vw, 9px);
-        font-size: clamp(9px, 2.4vw, 11px);
+        min-width: clamp(38px, 9vw, 46px);
+        min-height: clamp(36px, 9vw, 44px);
+        padding: 4px clamp(4px, 1vw, 7px);
+        font-size: clamp(8px, 1.8vw, 10px);
     }
 
     .ajustes-juego {
@@ -424,6 +473,11 @@ canvas:focus-visible {
         gap: 4px;
     }
 
+    .controles-utilidad {
+        inset: max(6px, env(safe-area-inset-top)) max(6px, env(safe-area-inset-right)) auto auto;
+        gap: 7px;
+    }
+
     .controles-tactiles button {
         min-width: 0;
         min-height: clamp(32px, 9vh, 40px);
@@ -436,6 +490,12 @@ canvas:focus-visible {
     .controles-tactiles button[data-tactil="izquierda"],
     .controles-tactiles button[data-tactil="derecha"] {
         flex: 0 0 clamp(34px, 5vw, 44px);
+    }
+
+    .controles-utilidad button {
+        min-width: 38px;
+        min-height: 30px;
+        font-size: 8px;
     }
 
     .separador-tactil {
