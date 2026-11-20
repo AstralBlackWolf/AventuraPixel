@@ -26,7 +26,7 @@ jobs:
       - name: Preparar archivos del sitio
         run: |
           mkdir site
-          cp index.html style.css game.js game-core.js game-audio.js pwa.js service-worker.js manifest.webmanifest icon.svg icon-192.png icon-512.png apple-touch-icon.png site/
+          cp index.html style.css game.js game-core.js game-audio.js mobile-layout.js pwa.js service-worker.js manifest.webmanifest icon.svg icon-192.png icon-512.png apple-touch-icon.png site/
           touch site/.nojekyll
       - name: Cargar archivos para GitHub Pages
         uses: actions/upload-pages-artifact@v4
