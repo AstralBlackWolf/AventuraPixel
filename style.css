@@ -558,3 +558,83 @@ body:not(.en-partida) .controles-utilidad {
 body.partida-pausada .controles-pausa { display: flex; }
 body:not(.en-partida) .controles-pausa,
 body:not(.partida-pausada) .controles-pausa { display: none; }
+
+/* Los controles elegidos por el jugador usan posiciones proporcionales al marco. */
+body.controles-personalizados .controles-tactiles {
+    inset: 0;
+    display: block;
+    pointer-events: none;
+    z-index: 3;
+}
+body.controles-personalizados .controles-tactiles button:not([data-tactil="ajustar"]) {
+    position: absolute;
+    left: var(--control-x, 0);
+    top: var(--control-y, 0);
+    transform: none;
+    pointer-events: auto;
+}
+body.controles-personalizados .separador-tactil { display: none; }
+body.controles-personalizados .controles-utilidad {
+    inset: 8px 8px auto auto;
+    z-index: 4;
+}
+.controles-utilidad button[data-tactil="ajustar"] {
+    min-width: 54px;
+    min-height: 42px;
+    border-color: rgba(255, 220, 105, 0.85);
+    background: rgba(35, 44, 35, 0.76);
+    color: #fff2b3;
+    opacity: 0.9;
+}
+.controles-ajuste {
+    display: none;
+    position: absolute;
+    z-index: 6;
+    top: max(10px, env(safe-area-inset-top));
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: min(96%, 440px);
+    padding: 9px;
+    border: 1px solid rgba(155, 223, 255, 0.8);
+    border-radius: 10px;
+    background: rgba(7, 12, 27, 0.94);
+    color: #eaf4ff;
+    pointer-events: auto;
+}
+.controles-ajuste p {
+    flex: 1 0 100%;
+    margin: 0;
+    font-size: 12px;
+}
+.controles-ajuste button {
+    min-width: 88px;
+    min-height: 42px;
+    border: 1px solid #8ccbff;
+    border-radius: 7px;
+    background: #142845;
+    color: #fff;
+    font: bold 12px "Courier New", monospace;
+    touch-action: manipulation;
+}
+body.ajustando-controles .controles-ajuste { display: flex; }
+body.ajustando-controles .controles-pausa { display: none; }
+body.ajustando-controles .controles-tactiles button:not([data-tactil="ajustar"]) {
+    outline: 2px dashed #ffe16b;
+    outline-offset: 2px;
+    opacity: 0.92;
+    cursor: move;
+    touch-action: none;
+}
+body:not(.en-partida) .controles-tactiles { display: none; }
+@media (pointer: coarse) and (orientation: portrait) {
+    .controles-utilidad button[data-tactil="pausa"],
+    .controles-utilidad button[data-tactil="ajustar"] {
+        min-width: 48px;
+        min-height: 48px;
+        font-size: 10px;
+    }
+}
