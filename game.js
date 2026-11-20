@@ -1904,13 +1904,24 @@
     }
 
     function dibujarPanelTutorial() {
-        if (!enTutorial || estado !== "jugando") return;
-        const cartel = cartelTutorialActual();
-        if (window.matchMedia("(pointer: coarse)").matches) {
-            if (!cartel) {
+        if (estado !== "jugando") return;
+        const dispositivoTactil = window.matchMedia("(pointer: coarse)").matches;
+        if (!enTutorial) {
+            if (dispositivoTactil && tiempo % 10 === 0) {
                 window.dispatchEvent(new CustomEvent("aventura:tutorial-movil", {
                     detail: { visible: false }
                 }));
+            }
+            return;
+        }
+        const cartel = cartelTutorialActual();
+        if (dispositivoTactil) {
+            if (!cartel) {
+                if (tiempo % 10 === 0) {
+                    window.dispatchEvent(new CustomEvent("aventura:tutorial-movil", {
+                        detail: { visible: false }
+                    }));
+                }
                 return;
             }
             if (tiempo % 10 === 0) {
