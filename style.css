@@ -638,3 +638,25 @@ body:not(.en-partida) .controles-tactiles { display: none; }
         font-size: 10px;
     }
 }
+
+.aviso-rotacion { display: none; }
+@media (pointer: coarse) and (orientation: portrait) and (max-width: 760px) {
+    body.en-partida .aviso-rotacion {
+        display: block;
+        position: absolute;
+        z-index: 5;
+        top: max(66px, env(safe-area-inset-top));
+        left: 50%;
+        width: min(82%, 360px);
+        transform: translateX(-50%);
+        margin: 0;
+        padding: 8px 10px;
+        border: 1px solid rgba(155, 223, 255, 0.55);
+        border-radius: 8px;
+        background: rgba(7, 12, 27, 0.72);
+        color: #eaf4ff;
+        font-size: 11px;
+        line-height: 1.3;
+        pointer-events: none;
+    }
+}
