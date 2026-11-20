@@ -189,6 +189,46 @@
         contexto.imageSmoothingEnabled = false;
     }
 
+    let temporizadorMensaje;
+    const hudNodos = [...document.querySelectorAll("[data-hud]")];
+    const tutorialPanel = document.querySelector(".tutorial-movil");
+    const mensajeMovil = document.querySelector(".mensaje-movil");
+
+    window.addEventListener("aventura:hud-movil", (evento) => {
+        const dato = evento.detail;
+        const valores = [
+            dato.tutorial ? "TUTORIAL" : "NIV " + dato.nivel + "/" + dato.totalNiveles,
+            "PTS " + dato.puntos,
+            "MON " + dato.monedas + "/" + dato.totalMonedas,
+            "DIAM " + dato.diamantes + "/3",
+            dato.llave ? "LLAVE SÍ" : "LLAVE NO",
+            "VIDAS " + dato.vidas + "/" + dato.maxVidas
+        ];
+        hudNodos.forEach((nodo, indice) => {
+            if (nodo.textContent !== valores[indice]) nodo.textContent = valores[indice];
+        });
+    });
+
+    window.addEventListener("aventura:tutorial-movil", (evento) => {
+        const dato = evento.detail;
+        document.body.classList.toggle("hay-tutorial-movil", Boolean(dato.visible));
+        tutorialPanel.setAttribute("aria-hidden", dato.visible ? "false" : "true");
+        if (!dato.visible) return;
+        tutorialPanel.querySelector('[data-tutorial="titulo"]').textContent = dato.titulo;
+        tutorialPanel.querySelector('[data-tutorial="progreso"]').textContent = dato.progreso;
+        tutorialPanel.querySelector('[data-tutorial="texto"]').textContent = dato.texto;
+    });
+
+    window.addEventListener("aventura:mensaje-movil", (evento) => {
+        if (!mensajeMovil) return;
+        mensajeMovil.textContent = evento.detail.texto;
+        mensajeMovil.hidden = false;
+        window.clearTimeout(temporizadorMensaje);
+        temporizadorMensaje = window.setTimeout(() => {
+            mensajeMovil.hidden = true;
+        }, Math.max(500, evento.detail.duracion * 1000 / 60));
+    });
+
     aplicarPosiciones();
     ajustarResolucionMovil();
     window.addEventListener("resize", () => {
