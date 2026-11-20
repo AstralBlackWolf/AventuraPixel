@@ -5165,24 +5165,27 @@
             ctx.restore();
         }
 
-        ctx.font = "12px monospace";
-        ctx.fillStyle = "#c6d7f4";
-        ctx.fillText(
-            `${etiquetaTecla(opciones.bindings.mapa)}: MAPA  ${etiquetaTecla(opciones.bindings.disparar)}: DISPARAR`,
-            ANCHO - 350,
-            54
-        );
+        const dispositivoTactil = window.matchMedia("(pointer: coarse)").matches;
+        if (!dispositivoTactil) {
+            ctx.font = "12px monospace";
+            ctx.fillStyle = "#c6d7f4";
+            ctx.fillText(
+                `${etiquetaTecla(opciones.bindings.mapa)}: MAPA  ${etiquetaTecla(opciones.bindings.disparar)}: DISPARAR`,
+                ANCHO - 350,
+                54
+            );
+        }
         if (jugador.escudo > 0) {
             ctx.font = "bold 12px monospace";
             ctx.fillStyle = "#69e7ff";
             ctx.fillText(`ESCUDO: ${(jugador.escudo / 60).toFixed(1)} s`, 24, 96);
         }
-        ctx.fillText(
+        if (!dispositivoTactil) ctx.fillText(
             `${etiquetaTecla(opciones.bindings.pausa)}: PAUSA  ${silencio ? "SONIDO APAGADO" : "SONIDO ACTIVO"}`,
             ANCHO - 350,
             72
         );
-        if (jugador.sobre && jugador.sobre.tipo !== "suelo") {
+        if (!dispositivoTactil && jugador.sobre && jugador.sobre.tipo !== "suelo") {
             textoCentrado("↓ / S: BAJAR DE LA PLATAFORMA", ANCHO / 2, ALTO - 13, 10, "#d7efff");
         }
     }
@@ -5217,11 +5220,20 @@
     function dibujarMensaje() {
         if (mensajeTiempo <= 0) return;
 
-        const y = ALTO - 108;
-        ctx.fillStyle = "rgba(7, 12, 27, 0.66)";
-        ctx.fillRect(ANCHO / 2 - 210, y, 420, 40);
+        const dispositivoTactil = window.matchMedia("(pointer: coarse)").matches;
+        const ancho = dispositivoTactil ? 360 : 420;
+        const alto = dispositivoTactil ? 34 : 40;
+        const y = dispositivoTactil ? 118 : ALTO - 108;
+        const tamano = dispositivoTactil ? 14 : 16;
+        ctx.save();
+        ctx.fillStyle = dispositivoTactil ? "rgba(7, 12, 27, 0.82)" : "rgba(7, 12, 27, 0.66)";
+        ctx.fillRect(ANCHO / 2 - ancho / 2, y, ancho, alto);
 
-        textoCentrado(mensaje, ANCHO / 2, y + 26, 16, "#ffffff");
+        ctx.font = `bold ${tamano}px monospace`;
+        const anchoTexto = ctx.measureText(mensaje).width;
+        const tamanoAjustado = anchoTexto > ancho - 24 ? tamano * (ancho - 24) / anchoTexto : tamano;
+        textoCentrado(mensaje, ANCHO / 2, y + alto * 0.68, tamanoAjustado, "#ffffff");
+        ctx.restore();
     }
 
     function dibujarParticulas() {
