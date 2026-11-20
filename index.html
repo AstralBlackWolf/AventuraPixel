@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="Aventura Pixel: restaura diez ecosistemas, aprende sobre su fauna y flora y completa tu álbum de descubrimientos.">
+    <meta name="theme-color" content="#07090e">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
+    <title>Aventura Pixel — juego de plataformas</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="game-core.js" defer></script>
+    <script src="game-audio.js" defer></script>
+    <script src="game.js" defer></script>
+    <script src="pwa.js" defer></script>
+</head>
+
+<body>
+    <main class="contenedor">
+        <header class="cabecera">
+            <h1>AVENTURA PIXEL</h1>
+            <p class="subtitulo">
+                Restaura diez ecosistemas, descubre su fauna y flora y reúne las fichas de tu bitácora.
+            </p>
+        </header>
+
+        <section class="seccion-juego" aria-label="Partida de Aventura Pixel">
+            <div class="marco-juego">
+                <canvas
+                    id="juego"
+                    width="900"
+                    height="500"
+                    tabindex="0"
+                    role="application"
+                    aria-label="Menú de Aventura Pixel y área de juego. Usa el ratón, las flechas, Enter o los controles táctiles para elegir y jugar."
+                >
+                    Tu navegador no admite Canvas. Actualiza el navegador para jugar a Aventura Pixel.
+                </canvas>
+                <nav class="controles-tactiles" aria-label="Controles táctiles del juego">
+                    <button type="button" data-tactil="izquierda" aria-label="Mover a la izquierda">◀</button>
+                    <button type="button" data-tactil="derecha" aria-label="Mover a la derecha">▶</button>
+                    <span class="separador-tactil" aria-hidden="true"></span>
+                    <button type="button" data-tactil="saltar" aria-label="Saltar">SALTAR</button>
+                    <button type="button" data-tactil="disparar" aria-label="Disparar">DISPARAR</button>
+                    <button type="button" data-tactil="pausa" aria-label="Pausar o continuar">PAUSA</button>
+                    <button type="button" data-tactil="mapa" aria-label="Abrir el mapa">MAPA</button>
+                </nav>
+            </div>
+
+            <details id="panel-configuracion" class="ajustes-juego" hidden>
+                <summary>Configuración y accesibilidad</summary>
+                <section class="opciones-juego" aria-label="Opciones de audio">
+                    <button id="boton-sonido" type="button" aria-pressed="false">
+                        Sonido: activado
+                    </button>
+                    <label for="volumen-sonido">Volumen</label>
+                    <input id="volumen-sonido" type="range" min="0" max="100" value="70" aria-label="Volumen general de música y efectos de sonido">
+                </section>
+                <div class="rejilla-ajustes">
+                    <label for="dificultad">Dificultad</label>
+                    <select id="dificultad">
+                        <option value="facil">Fácil</option>
+                        <option value="normal">Normal</option>
+                        <option value="dificil">Difícil</option>
+                    </select>
+                    <span class="ayuda-ajuste">Cada dificultad conserva sus niveles, estrellas y logros por separado.</span>
+
+                    <label for="velocidad-juego">Velocidad de juego <output id="valor-velocidad">100%</output></label>
+                    <input id="velocidad-juego" type="range" min="75" max="125" step="5" value="100">
+
+                    <span>Desactivar sacudidas y destellos</span>
+                    <input id="reducir-movimiento" type="checkbox">
+
+                    <span>Alto contraste</span>
+                    <input id="alto-contraste" type="checkbox">
+                </div>
+                <fieldset class="reasignar-controles">
+                    <legend>Teclas (pulsa un botón y luego la nueva tecla)</legend>
+                    <button type="button" data-reasignar="izquierda">Izquierda: ←</button>
+                    <button type="button" data-reasignar="derecha">Derecha: →</button>
+                    <button type="button" data-reasignar="saltar">Saltar: espacio</button>
+                    <button type="button" data-reasignar="disparar">Disparar: F</button>
+                    <button type="button" data-reasignar="pausa">Pausa: P</button>
+                    <button type="button" data-reasignar="mapa">Mapa: M</button>
+                    <button type="button" data-reasignar="reiniciar">Reiniciar: R</button>
+                    <button type="button" data-reasignar="sonido">Sonido: N</button>
+                </fieldset>
+                <button id="boton-borrar-progreso" class="boton-borrar-progreso" type="button">Borrar partida guardada</button>
+                <p id="estado-ajustes" class="estado-ajustes" aria-live="polite"></p>
+            </details>
+
+        </section>
+
+        <footer class="nota">
+            <p>Tu misión: comprende cada hábitat, reúne sus semillas de energía y ayuda a la vida a recuperar su equilibrio.</p>
+        </footer>
+    </main>
+</body>
+</html>

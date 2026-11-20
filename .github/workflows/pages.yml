@@ -1,0 +1,37 @@
+name: Publicar Aventura Pixel en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v6
+      - name: Preparar archivos del sitio
+        run: |
+          mkdir site
+          cp index.html style.css game.js game-core.js game-audio.js pwa.js service-worker.js manifest.webmanifest icon.svg site/
+          touch site/.nojekyll
+      - name: Cargar archivos para GitHub Pages
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+      - name: Publicar sitio
+        id: deploy
+        uses: actions/deploy-pages@v5
