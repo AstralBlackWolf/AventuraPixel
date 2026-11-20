@@ -904,6 +904,9 @@
     function mostrarMensaje(texto, duracion = 150) {
         mensaje = texto;
         mensajeTiempo = duracion;
+        window.dispatchEvent(new CustomEvent("aventura:mensaje-movil", {
+            detail: { texto, duracion }
+        }));
     }
 
     function textoCentrado(texto, x, y, tamano = 20, color = "#ffffff") {
@@ -1903,6 +1906,23 @@
     function dibujarPanelTutorial() {
         if (!enTutorial || estado !== "jugando") return;
         const cartel = cartelTutorialActual();
+        if (window.matchMedia("(pointer: coarse)").matches) {
+            if (!cartel) {
+                window.dispatchEvent(new CustomEvent("aventura:tutorial-movil", {
+                    detail: { visible: false }
+                }));
+                return;
+            }
+            if (tiempo % 10 === 0) {
+                window.dispatchEvent(new CustomEvent("aventura:tutorial-movil", { detail: {
+                    visible: true,
+                    titulo: cartel.titulo,
+                    texto: cartel.texto(),
+                    progreso: (tutorialCarteles.indexOf(cartel) + 1) + "/" + tutorialCarteles.length
+                }}));
+            }
+            return;
+        }
         if (!cartel) return;
         ctx.save();
         ctx.font = "13px monospace";
@@ -5107,6 +5127,24 @@
     // -----------------------------------------------------
 
     function dibujarHUD() {
+        const dispositivoTactil = window.matchMedia("(pointer: coarse)").matches;
+        if (dispositivoTactil) {
+            if (tiempo % 10 === 0) {
+                window.dispatchEvent(new CustomEvent("aventura:hud-movil", { detail: {
+                    tutorial: enTutorial,
+                    nivel: nivelActual,
+                    totalNiveles: TOTAL_NIVELES,
+                    puntos: puntosMostrados,
+                    monedas: jugador.monedas,
+                    totalMonedas: monedas.length,
+                    diamantes: jugador.diamantes,
+                    llave: jugador.tieneLlave,
+                    vidas: jugador.vidas,
+                    maxVidas: vidasPorNivel()
+                }}));
+            }
+            return;
+        }
         rectangulo(12, 12, 286, 64, "rgba(7, 12, 27, 0.58)");
 
         ctx.font = "bold 13px monospace";
@@ -5165,7 +5203,6 @@
             ctx.restore();
         }
 
-        const dispositivoTactil = window.matchMedia("(pointer: coarse)").matches;
         if (!dispositivoTactil) {
             ctx.font = "12px monospace";
             ctx.fillStyle = "#c6d7f4";
@@ -5218,7 +5255,7 @@
     }
 
     function dibujarMensaje() {
-        if (mensajeTiempo <= 0) return;
+        if (mensajeTiempo <= 0 || window.matchMedia("(pointer: coarse)").matches) return;
 
         const dispositivoTactil = window.matchMedia("(pointer: coarse)").matches;
         const ancho = dispositivoTactil ? 300 : 340;
