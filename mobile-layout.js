@@ -249,9 +249,11 @@
         if (!mensajeMovil) return;
         mensajeMovil.textContent = evento.detail.texto;
         mensajeMovil.hidden = false;
+        document.body.classList.add("hay-mensaje-movil");
         window.clearTimeout(temporizadorMensaje);
         temporizadorMensaje = window.setTimeout(() => {
             mensajeMovil.hidden = true;
+            document.body.classList.remove("hay-mensaje-movil");
         }, Math.max(500, evento.detail.duracion * 1000 / 60));
     });
 
