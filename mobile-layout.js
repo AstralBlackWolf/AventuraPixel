@@ -200,6 +200,27 @@
         });
     }
 
+    for (const boton of document.querySelectorAll("[data-victoria]")) {
+        boton.addEventListener("click", () => {
+            if (!document.body.classList.contains("partida-victoria")) return;
+            const accion = boton.dataset.victoria;
+            if (accion === "continuar") {
+                enviarTecla("Enter");
+                return;
+            }
+            let tecla = accion === "reiniciar" ? "r" : "m";
+            try {
+                const opciones = JSON.parse(localStorage.getItem("aventuraPixelOpcionesV1") || "null");
+                tecla = accion === "reiniciar"
+                    ? (opciones?.bindings?.reiniciar || tecla)
+                    : (opciones?.bindings?.mapa || tecla);
+            } catch (error) {
+                // R reinicia el nivel y M abre el mapa con los controles predeterminados.
+            }
+            enviarTecla(tecla);
+        });
+    }
+
     if (selectorDiseno) {
         selectorDiseno.addEventListener("change", () => {
             if (selectorDiseno.value === "personalizado") return;
