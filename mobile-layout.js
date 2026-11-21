@@ -134,6 +134,32 @@
         estabaJugandoAlAjustar = false;
     }
 
+    function enviarTecla(tecla) {
+        window.dispatchEvent(new KeyboardEvent("keydown", {
+            key: tecla,
+            bubbles: true,
+            cancelable: true
+        }));
+    }
+
+    for (const boton of document.querySelectorAll("[data-final]")) {
+        boton.addEventListener("click", () => {
+            if (!document.body.classList.contains("partida-derrota")) return;
+            if (boton.dataset.final === "reiniciar") {
+                enviarTecla("Enter");
+                return;
+            }
+            let teclaMapa = "m";
+            try {
+                const opciones = JSON.parse(localStorage.getItem("aventuraPixelOpcionesV1") || "null");
+                teclaMapa = opciones?.bindings?.mapa || teclaMapa;
+            } catch (error) {
+                // M es la tecla predeterminada para volver al mapa.
+            }
+            enviarTecla(teclaMapa);
+        });
+    }
+
     botonAjustar.addEventListener("click", iniciarAjuste);
     barraAjuste.querySelector('[data-layout="guardar"]').addEventListener("click", () => terminarAjuste());
     barraAjuste.querySelector('[data-layout="restablecer"]').addEventListener("click", restablecer);
