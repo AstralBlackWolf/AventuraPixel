@@ -904,3 +904,27 @@ body.hay-reanudar-movil .reanudar-movil:not([hidden]) {
     color: #aec1d4;
     font-size: 0.9em;
 }
+
+body.alto-contraste .hud-movil,
+body.alto-contraste .tutorial-movil,
+body.alto-contraste .mensaje-movil,
+body.alto-contraste .reanudar-movil {
+    border: 2px solid #fff;
+    background: #000;
+    color: #fff;
+}
+body.alto-contraste .tutorial-movil strong { color: #ffeb3b; }
+body.alto-contraste .controles-tactiles button,
+body.alto-contraste .controles-utilidad button {
+    border-color: #ffeb3b;
+    background: #000;
+    color: #fff;
+    opacity: 1;
+}
+body.alto-contraste .controles-ajuste select,
+body.alto-contraste .controles-ajuste button,
+body.alto-contraste .reanudar-movil button {
+    border-color: #ffeb3b;
+    background: #000;
+    color: #fff;
+}
