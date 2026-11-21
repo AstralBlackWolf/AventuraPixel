@@ -850,3 +850,50 @@ body.hay-reanudar-movil .reanudar-movil:not([hidden]) {
     body.en-partida .tutorial-movil { font-size: var(--fuente-movil, 10px); }
     body.en-partida .mensaje-movil { font-size: calc(var(--fuente-movil, 10px) + 2px); }
 }
+
+/* En vertical se amplía la zona de juego y se centra la cámara en el personaje,
+   conservando la proporción del arte y recortando solo los lados del panorama. */
+@media (pointer: coarse) and (orientation: portrait) and (max-width: 760px) {
+    body.en-partida .cabecera,
+    body.en-partida .nota,
+    body.partida-derrota .cabecera,
+    body.partida-derrota .nota { display: none; }
+    body.en-partida .contenedor,
+    body.partida-derrota .contenedor {
+        width: 100vw;
+        height: 100dvh;
+        max-width: none;
+    }
+    body.en-partida .seccion-juego,
+    body.partida-derrota .seccion-juego {
+        width: 100vw;
+        height: 100dvh;
+        justify-content: center;
+    }
+    body.en-partida .marco-juego,
+    body.partida-derrota .marco-juego {
+        width: 100vw;
+        height: min(62dvh, 520px);
+        flex: none;
+        border: 0;
+        border-radius: 0;
+        overflow: hidden;
+    }
+    body.en-partida .marco-juego canvas,
+    body.partida-derrota .marco-juego canvas {
+        position: absolute;
+        top: 50%;
+        left: var(--canvas-left, 0px);
+        width: auto;
+        height: 100%;
+        max-width: none;
+        transform: translateY(-50%);
+    }
+    body.en-partida .aviso-rotacion {
+        top: auto;
+        bottom: 62px;
+        width: min(84%, 340px);
+        font-size: 10px;
+    }
+    body.partida-derrota .controles-derrota { bottom: 9%; }
+}
