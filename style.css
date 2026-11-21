@@ -732,13 +732,15 @@ body:not(.en-partida) .controles-tactiles { display: none; }
     .tutorial-movil span { float: right; color: #9fb3c9; }
     .tutorial-movil p { margin: 3px 0 0; }
     body.en-partida.hay-tutorial-movil .tutorial-movil { display: block; }
+    body.en-partida.hay-mensaje-movil .tutorial-movil { top: max(94px, calc(env(safe-area-inset-top) + 86px)); }
     body.en-partida.hay-tutorial-movil .aviso-rotacion { display: none; }
     body.en-partida .mensaje-movil:not([hidden]) {
         display: block;
         position: absolute;
         z-index: 5;
         left: 50%;
-        bottom: max(68px, calc(env(safe-area-inset-bottom) + 58px));
+        top: max(48px, calc(env(safe-area-inset-top) + 42px));
+        bottom: auto;
         transform: translateX(-50%);
         width: min(90%, 420px);
         margin: 0;
