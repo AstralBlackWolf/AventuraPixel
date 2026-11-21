@@ -897,3 +897,10 @@ body.hay-reanudar-movil .reanudar-movil:not([hidden]) {
     }
     body.partida-derrota .controles-derrota { bottom: 9%; }
 }
+
+.tutorial-movil small {
+    display: block;
+    margin-top: 5px;
+    color: #aec1d4;
+    font-size: 0.9em;
+}
