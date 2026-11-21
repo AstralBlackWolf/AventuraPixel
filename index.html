@@ -79,10 +79,23 @@
                 </nav>
                 <nav class="controles-ajuste" aria-label="Personalización de controles" aria-hidden="true">
                     <p>Arrastra los botones a tu gusto</p>
+                    <label for="diseno-controles">Diseño</label>
+                    <select id="diseno-controles" data-layout="preset" aria-label="Diseño de controles">
+                        <option value="personalizado">Personalizado</option>
+                        <option value="diestro">Diestro</option>
+                        <option value="zurdo">Zurdo</option>
+                        <option value="compacto">Compacto</option>
+                    </select>
                     <button type="button" data-layout="guardar">LISTO</button>
                     <button type="button" data-layout="restablecer">RESTABLECER</button>
                 </nav>
             </div>
+            <section class="reanudar-movil" aria-label="Continuar partida anterior" hidden>
+                <h2>Partida guardada</h2>
+                <p data-reanudar="texto"></p>
+                <button type="button" data-reanudar="continuar">CONTINUAR</button>
+                <button type="button" data-reanudar="descartar">EMPEZAR DESDE EL MENÚ</button>
+            </section>
 
             <details id="panel-configuracion" class="ajustes-juego" hidden>
                 <summary>Configuración y accesibilidad</summary>
@@ -110,6 +123,19 @@
 
                     <span>Alto contraste</span>
                     <input id="alto-contraste" type="checkbox">
+                    <label for="calidad-grafica">Calidad gráfica en celular</label>
+                    <select id="calidad-grafica">
+                        <option value="auto">Automática</option>
+                        <option value="ahorro">Ahorro</option>
+                        <option value="equilibrada">Equilibrada</option>
+                        <option value="alta">Alta</option>
+                    </select>
+                    <label for="tamano-texto-movil">Tamaño de texto en celular</label>
+                    <select id="tamano-texto-movil">
+                        <option value="normal">Normal</option>
+                        <option value="grande">Grande</option>
+                        <option value="muy-grande">Muy grande</option>
+                    </select>
                 </div>
                 <fieldset class="reasignar-controles">
                     <legend>Teclas (pulsa un botón y luego la nueva tecla)</legend>
