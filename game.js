@@ -720,6 +720,20 @@
         }
     }
 
+    function guardarSesionMovil() {
+        if (enTutorial || estado !== "jugando") return;
+        try {
+            localStorage.setItem("aventuraPixelSesionMovilV1", JSON.stringify({
+                version: 1,
+                nivel: nivelActual,
+                dificultad: opciones.dificultad,
+                guardada: Date.now()
+            }));
+        } catch (error) {
+            // La pausa en memoria sigue funcionando sin almacenamiento.
+        }
+    }
+
     function cargarProgresoGuardado() {
         try {
             const datos = JSON.parse(localStorage.getItem(CLAVE_GUARDADO) || "null");
@@ -933,6 +947,7 @@
     }
 
     function irANivel(numero) {
+        try { localStorage.removeItem("aventuraPixelSesionMovilV1"); } catch (error) { /* almacenamiento opcional */ }
         if (enTutorial) {
             jugador.vidas = vidasPorNivel();
             transicion(cargarTutorial);
@@ -6119,6 +6134,12 @@
     let acumulador = 0;
 
     function bucle(ahora) {
+        if (document.hidden) {
+            ultimoMarca = ahora;
+            acumulador = 0;
+            requestAnimationFrame(bucle);
+            return;
+        }
         acumulador += Math.min(ahora - ultimoMarca, 100);
         ultimoMarca = ahora;
         const pasoActual = PASO / (opciones.velocidad / 100);
@@ -6347,6 +6368,17 @@
     }
 
     actualizarAjustesUI();
+
+    window.addEventListener("aventura:retomar-movil", (evento) => {
+        const nivel = Number(evento.detail?.nivel);
+        if (estado !== "inicio" || !Number.isInteger(nivel)) return;
+        if (nivel < 1 || nivel > nivelesDesbloqueados) {
+            mostrarMensaje("EL NIVEL GUARDADO YA NO ESTÁ DISPONIBLE", 140);
+            return;
+        }
+        nivelActual = nivel;
+        irANivel(nivel);
+    });
 
     window.addEventListener("keydown", (e) => {
         const tecla = e.key.toLowerCase();
@@ -6622,6 +6654,7 @@
     }
 
     window.addEventListener("pagehide", () => {
+        guardarSesionMovil();
         guardarProgreso();
         guardarOpciones();
         audio.detenerMusica();
@@ -6629,6 +6662,8 @@
 
     document.addEventListener("visibilitychange", () => {
         if (document.hidden) {
+            guardarSesionMovil();
+            if (estado === "jugando") pausado = true;
             guardarProgreso();
             audio.detenerMusica();
             firmaMusica = "";
