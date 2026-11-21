@@ -21,8 +21,8 @@
 
     if (!contenedor || !zonaControles || !botonAjustar || !barraAjuste || !canvas || !contexto) return;
 
-    let posiciones = cargarPosiciones();
     let presetControles = "personalizado";
+    let posiciones = cargarPosiciones();
     let estabaJugandoAlAjustar = false;
     let arrastre = null;
 
@@ -289,6 +289,22 @@
         contexto.imageSmoothingEnabled = false;
     }
 
+    const pantallaVertical = window.matchMedia("(pointer: coarse) and (orientation: portrait) and (max-width: 760px)");
+    let ultimaPosicionJugador = 450;
+    function centrarCamaraVertical() {
+        if (!pantallaVertical.matches || (!document.body.classList.contains("en-partida") && !document.body.classList.contains("partida-derrota"))) return;
+        const anchoMarco = Math.max(1, contenedor.clientWidth);
+        const escala = contenedor.clientHeight / 500;
+        const anchoLienzo = 900 * escala;
+        const izquierdaMaxima = Math.min(0, anchoMarco - anchoLienzo);
+        const izquierda = Math.max(izquierdaMaxima, Math.min(0, anchoMarco / 2 - ultimaPosicionJugador * escala));
+        canvas.style.setProperty("--canvas-left", izquierda + "px");
+    }
+    window.addEventListener("aventura:camara-movil", (evento) => {
+        ultimaPosicionJugador = evento.detail.jugadorX;
+        centrarCamaraVertical();
+    });
+
     let temporizadorMensaje;
     const hudNodos = [...document.querySelectorAll("[data-hud]")];
     const tutorialPanel = document.querySelector(".tutorial-movil");
@@ -366,6 +382,8 @@
     window.addEventListener("resize", () => {
         ajustarResolucionMovil();
         aplicarPosiciones();
+        centrarCamaraVertical();
     }, { passive: true });
+    pantallaVertical.addEventListener?.("change", centrarCamaraVertical);
     esTactil.addEventListener?.("change", ajustarResolucionMovil);
 })();
