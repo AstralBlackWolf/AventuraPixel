@@ -792,3 +792,61 @@ body.partida-derrota .controles-derrota { display: flex; }
         min-height: 54px;
     }
 }
+
+.controles-ajuste label { align-self: center; font-size: 11px; }
+.controles-ajuste select {
+    min-height: 42px;
+    padding: 6px 8px;
+    border: 1px solid #8ccbff;
+    border-radius: 7px;
+    background: #101b2b;
+    color: #fff;
+    font: 12px "Courier New", monospace;
+}
+.rejilla-ajustes select {
+    min-height: 40px;
+    padding: 7px;
+}
+.seccion-juego { position: relative; }
+.reanudar-movil { display: none; }
+body.hay-reanudar-movil .reanudar-movil:not([hidden]) {
+    display: grid;
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    gap: 10px;
+    width: min(90vw, 420px);
+    padding: 18px;
+    border: 1px solid #8ccbff;
+    border-radius: 12px;
+    background: rgba(7, 12, 27, 0.97);
+    color: #eef6ff;
+    text-align: center;
+    box-shadow: 0 8px 32px #000a;
+}
+.reanudar-movil h2 { margin: 0; color: #8ccbff; font-size: 20px; }
+.reanudar-movil p { margin: 0 0 4px; line-height: 1.5; }
+.reanudar-movil button {
+    min-height: 48px;
+    border: 1px solid #8ccbff;
+    border-radius: 8px;
+    background: #142845;
+    color: #fff;
+    font: bold 13px "Courier New", monospace;
+}
+.reanudar-movil button:first-of-type { background: #24547a; }
+@media (pointer: coarse) {
+    body.en-partida .tutorial-movil {
+        pointer-events: auto;
+        touch-action: pan-y;
+    }
+    body[data-tamano-texto="grande"] { --fuente-movil: 12px; }
+    body[data-tamano-texto="muy-grande"] { --fuente-movil: 14px; }
+    body:not([data-tamano-texto]),
+    body[data-tamano-texto="normal"] { --fuente-movil: 10px; }
+    body.en-partida .hud-movil { font-size: var(--fuente-movil, 10px); }
+    body.en-partida .tutorial-movil { font-size: var(--fuente-movil, 10px); }
+    body.en-partida .mensaje-movil { font-size: calc(var(--fuente-movil, 10px) + 2px); }
+}
