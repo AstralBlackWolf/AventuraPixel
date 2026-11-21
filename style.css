@@ -751,3 +751,42 @@ body:not(.en-partida) .controles-tactiles { display: none; }
         pointer-events: none;
     }
 }
+
+.controles-derrota {
+    display: none;
+    position: absolute;
+    z-index: 8;
+    left: 50%;
+    bottom: 10%;
+    transform: translateX(-50%);
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: min(92%, 440px);
+}
+body.partida-derrota .controles-derrota { display: flex; }
+.controles-derrota button {
+    min-width: 132px;
+    min-height: 48px;
+    padding: 9px 13px;
+    border: 1px solid #9bdfff;
+    border-radius: 9px;
+    background: rgba(14, 40, 66, 0.96);
+    color: #fff;
+    font: bold 12px "Courier New", monospace;
+    touch-action: manipulation;
+}
+.controles-derrota button:first-child {
+    border-color: #ff9aaa;
+    background: rgba(91, 28, 43, 0.96);
+}
+@media (pointer: coarse) and (orientation: portrait) and (max-width: 760px) {
+    .controles-tactiles button[data-tactil="izquierda"],
+    .controles-tactiles button[data-tactil="derecha"] {
+        min-width: 56px;
+        min-height: 54px;
+    }
+    .controles-tactiles button[data-tactil="abajo"] {
+        min-height: 54px;
+    }
+}
