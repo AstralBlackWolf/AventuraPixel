@@ -6038,6 +6038,8 @@
     function dibujar() {
         document.body.classList.toggle("en-partida", estado === "jugando");
         document.body.classList.toggle("partida-pausada", estado === "jugando" && pausado);
+        document.body.classList.toggle("partida-derrota", estado === "derrota");
+        document.querySelector(".controles-derrota")?.setAttribute("aria-hidden", estado === "derrota" ? "false" : "true");
         if (estado === "inicio") {
             dibujarMapa();
             ctx.fillStyle = "rgba(5, 8, 20, 0.82)";
