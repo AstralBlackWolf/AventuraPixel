@@ -348,14 +348,15 @@
     }
     botonReanudar?.addEventListener("click", () => {
         if (!sesionPendiente) return;
-        localStorage.removeItem(CLAVE_SESION);
+        try { localStorage.removeItem(CLAVE_SESION); } catch (error) { /* reanudación opcional */ }
         panelReanudar.hidden = true;
+        document.body.classList.remove("hay-reanudar-movil");
         window.dispatchEvent(new CustomEvent("aventura:retomar-movil", {
             detail: { nivel: sesionPendiente.nivel }
         }));
     });
     botonDescartar?.addEventListener("click", () => {
-        localStorage.removeItem(CLAVE_SESION);
+        try { localStorage.removeItem(CLAVE_SESION); } catch (error) { /* reanudación opcional */ }
         panelReanudar.hidden = true;
         document.body.classList.remove("hay-reanudar-movil");
     });
