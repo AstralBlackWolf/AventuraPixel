@@ -5169,6 +5169,11 @@
                     maxVidas: vidasPorNivel()
                 }}));
             }
+            if (tiempo % 2 === 0) {
+                window.dispatchEvent(new CustomEvent("aventura:camara-movil", {
+                    detail: { jugadorX: jugador.x - camaraX + jugador.ancho / 2 }
+                }));
+            }
             return;
         }
         rectangulo(12, 12, 286, 64, "rgba(7, 12, 27, 0.58)");
