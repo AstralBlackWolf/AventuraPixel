@@ -11,20 +11,28 @@
     const canvas = document.getElementById("juego");
     const contexto = canvas?.getContext("2d");
     const CLAVE_POSICIONES = "aventuraPixelControlesMovilesV1";
+    const CLAVE_SESION = "aventuraPixelSesionMovilV1";
+    const CLAVE_CALIDAD = "aventuraPixelCalidadMovilV1";
+    const CLAVE_TEXTO = "aventuraPixelTextoMovilV1";
+    const selectorDiseno = document.getElementById("diseno-controles");
+    const selectorCalidad = document.getElementById("calidad-grafica");
+    const selectorTexto = document.getElementById("tamano-texto-movil");
     const esTactil = window.matchMedia("(pointer: coarse)");
 
     if (!contenedor || !zonaControles || !botonAjustar || !barraAjuste || !canvas || !contexto) return;
 
     let posiciones = cargarPosiciones();
+    let presetControles = "personalizado";
     let estabaJugandoAlAjustar = false;
     let arrastre = null;
 
     function cargarPosiciones() {
         try {
             const guardadas = JSON.parse(localStorage.getItem(CLAVE_POSICIONES) || "null");
-            return guardadas && guardadas.version === 1 && guardadas.posiciones
-                ? guardadas.posiciones
-                : null;
+            if (!guardadas || guardadas.version !== 1 || !guardadas.posiciones) return null;
+            presetControles = guardadas.preset || "personalizado";
+            if (selectorDiseno) selectorDiseno.value = presetControles;
+            return guardadas.posiciones;
         } catch (error) {
             return null;
         }
@@ -34,6 +42,7 @@
         try {
             localStorage.setItem(CLAVE_POSICIONES, JSON.stringify({
                 version: 1,
+                preset: presetControles,
                 posiciones
             }));
         } catch (error) {
@@ -69,6 +78,35 @@
                 colocar(control, posicion);
             }
         }
+    }
+
+    function aplicarDiseno(nombre) {
+        const y = nombre === "compacto" ? 0.83 : 0.75;
+        const disenos = {
+            diestro: {
+                izquierda: [0.02, y], derecha: [0.16, y], abajo: [0.30, y],
+                disparar: [0.62, y], saltar: [0.81, y]
+            },
+            zurdo: {
+                izquierda: [0.82, y], derecha: [0.68, y], abajo: [0.54, y],
+                disparar: [0.04, y], saltar: [0.23, y]
+            },
+            compacto: {
+                izquierda: [0.02, 0.82], derecha: [0.14, 0.82], abajo: [0.27, 0.82],
+                disparar: [0.64, 0.82], saltar: [0.82, 0.82]
+            }
+        };
+        const diseno = disenos[nombre];
+        if (!diseno) return;
+        presetControles = nombre;
+        posiciones = {};
+        document.body.classList.add("controles-personalizados");
+        for (const control of controles) {
+            const [x, yPos] = diseno[control.dataset.tactil];
+            colocar(control, { x, y: yPos });
+        }
+        if (selectorDiseno) selectorDiseno.value = nombre;
+        guardarPosiciones();
     }
 
     function pulsarPausa() {
@@ -119,6 +157,8 @@
 
     function restablecer() {
         posiciones = null;
+        presetControles = "diestro";
+        if (selectorDiseno) selectorDiseno.value = "diestro";
         try {
             localStorage.removeItem(CLAVE_POSICIONES);
         } catch (error) {
@@ -160,6 +200,36 @@
         });
     }
 
+    if (selectorDiseno) {
+        selectorDiseno.addEventListener("change", () => {
+            if (selectorDiseno.value === "personalizado") return;
+            aplicarDiseno(selectorDiseno.value);
+        });
+    }
+
+    if (selectorCalidad) {
+        try {
+            selectorCalidad.value = localStorage.getItem(CLAVE_CALIDAD) || "auto";
+        } catch (error) { selectorCalidad.value = "auto"; }
+        selectorCalidad.addEventListener("change", () => {
+            try { localStorage.setItem(CLAVE_CALIDAD, selectorCalidad.value); } catch (error) { /* ajuste de sesión */ }
+            ajustarResolucionMovil();
+        });
+    }
+
+    if (selectorTexto) {
+        try {
+            selectorTexto.value = localStorage.getItem(CLAVE_TEXTO) || "normal";
+        } catch (error) { selectorTexto.value = "normal"; }
+        const aplicarTexto = () => {
+            const tamano = selectorTexto.value || "normal";
+            document.body.dataset.tamanoTexto = tamano;
+            try { localStorage.setItem(CLAVE_TEXTO, tamano); } catch (error) { /* ajuste de sesión */ }
+        };
+        selectorTexto.addEventListener("change", aplicarTexto);
+        aplicarTexto();
+    }
+
     botonAjustar.addEventListener("click", iniciarAjuste);
     barraAjuste.querySelector('[data-layout="guardar"]').addEventListener("click", () => terminarAjuste());
     barraAjuste.querySelector('[data-layout="restablecer"]').addEventListener("click", restablecer);
@@ -190,6 +260,8 @@
                 x: arrastre.x + (evento.clientX - arrastre.inicioX) / ancho,
                 y: arrastre.y + (evento.clientY - arrastre.inicioY) / alto
             });
+            presetControles = "personalizado";
+            if (selectorDiseno) selectorDiseno.value = "personalizado";
         });
 
         for (const tipo of ["pointerup", "pointercancel", "lostpointercapture"]) {
@@ -203,7 +275,9 @@
 
     function ajustarResolucionMovil() {
         if (!esTactil.matches) return;
-        const escala = Math.min(window.devicePixelRatio || 1, 1.25);
+        const calidad = selectorCalidad?.value || "auto";
+        const limites = { auto: 1.25, ahorro: 1, equilibrada: 1.25, alta: 1.5 };
+        const escala = Math.min(window.devicePixelRatio || 1, limites[calidad] || 1.25);
         const anchoLogico = 900;
         const altoLogico = 500;
         const ancho = Math.round(anchoLogico * escala);
@@ -255,6 +329,35 @@
             mensajeMovil.hidden = true;
             document.body.classList.remove("hay-mensaje-movil");
         }, Math.max(500, evento.detail.duracion * 1000 / 60));
+    });
+
+    const panelReanudar = document.querySelector(".reanudar-movil");
+    const textoReanudar = panelReanudar?.querySelector('[data-reanudar="texto"]');
+    const botonReanudar = panelReanudar?.querySelector('[data-reanudar="continuar"]');
+    const botonDescartar = panelReanudar?.querySelector('[data-reanudar="descartar"]');
+    let sesionPendiente = null;
+    try {
+        sesionPendiente = JSON.parse(localStorage.getItem(CLAVE_SESION) || "null");
+    } catch (error) {
+        sesionPendiente = null;
+    }
+    if (panelReanudar && sesionPendiente && Number.isInteger(sesionPendiente.nivel)) {
+        textoReanudar.textContent = "Nivel " + sesionPendiente.nivel + ". Se retomará desde el inicio de ese nivel.";
+        panelReanudar.hidden = false;
+        document.body.classList.add("hay-reanudar-movil");
+    }
+    botonReanudar?.addEventListener("click", () => {
+        if (!sesionPendiente) return;
+        localStorage.removeItem(CLAVE_SESION);
+        panelReanudar.hidden = true;
+        window.dispatchEvent(new CustomEvent("aventura:retomar-movil", {
+            detail: { nivel: sesionPendiente.nivel }
+        }));
+    });
+    botonDescartar?.addEventListener("click", () => {
+        localStorage.removeItem(CLAVE_SESION);
+        panelReanudar.hidden = true;
+        document.body.classList.remove("hay-reanudar-movil");
     });
 
     aplicarPosiciones();
