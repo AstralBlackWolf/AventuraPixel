@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "aventura-pixel-v32";
+const CACHE_NAME = "aventura-pixel-v33";
 const APP_FILES = [
     "./",
     "./index.html",
